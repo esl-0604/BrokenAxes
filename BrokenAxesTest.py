@@ -17,12 +17,12 @@ sns.set_theme(style='ticks')
 ## whitespace                  : 차트를 위아래로 자르게 되면, 두 차트 각각 y_label을 설정하도록 되어서 아래쪽만 label을 남겨두고, 공백을 삽입하여 중앙을 맞춘다...ㅎㅎ 
 #                                (chartSize와 잘 맞춰가며 조절할 것)
 
-chartSize = (6,9)
-chartScale = [3,1]
-upper_Yrange = (500, 800)
-lower_Yrange = (40, 100)
-y_label = 'Number of wrist snaps per ESD (n)'
-whitespace = "                                                                                                                                  "  # 공백 삽입
+chartSize = (9,9)
+chartScale = [1,1]
+upper_Yrange = (35, 45)
+lower_Yrange = (0, 10)
+y_label = 'Number of wrist snaps per tool change (n)'
+whitespace = "                                                                         "  # 공백 삽입
 # ----------------------------------------------------------------------------------------
 
 # 두 개의 (상, 하) 차트 각각 생성
@@ -44,7 +44,7 @@ axUp.set_ylabel('')                             # 상단 그래프 y축 레이�
 sns.boxplot(x=' ', y=y_label, data=df, ax=axDown, palette='Paired')
 axDown.set_ylim(lower_Yrange)                   # 하단 축의 y범위 설정
 axDown.spines['top'].set_visible(False)         # 상단 테두리 숨김
-axDown.set_ylabel(whitespace + y_label)         # 하단 그래프에만 y축 레이블 설정
+axDown.set_ylabel(whitespace + y_label, fontsize=14)         # 하단 그래프에만 y축 레이블 설정
 
 # 축 단절 대각선 표시
 d = .015 
