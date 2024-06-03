@@ -56,24 +56,28 @@ axDown.spines['top'].set_visible(False)         # 상단 테두리 숨김
 axDown.set_ylabel(whitespace + y_label, fontsize=14)         # 하단 그래프에만 y축 레이블 설정
 
 
-# p-value에 따른 별표를 그래프에 추가하는 함수
-if p_value < 0.001:
-    stars = '***'
-elif p_value < 0.01:
-    stars = '**'
-elif p_value < 0.05:
-    stars = '*'
-else:
-    stars = 'ns'
+# p-value에 따른 별표 추가 함수
+def add_pvalue_star(ax, p_value, x1, x2, y, height, text_height):
+    """p-value에 따른 별표를 그래프에 추가하는 함수"""
+    if p_value < 0.001:
+        stars = '***'
+    elif p_value < 0.01:
+        stars = '**'
+    elif p_value < 0.05:
+        stars = '*'
+    else:
+        stars = 'ns'
+    
+    print("p-value : " + str(p_value))
+    
+    # 두 그룹 사이에 선과 별표 추가
+    ax.plot([x1, x1, x2, x2], [y, y + height, y + height, y], lw = 2, color='black')
+    ax.text((x1 + x2) * 0.5, y + height - text_height, stars, ha='center', va='bottom', color='black')
 
-print(p_value)
-
-# Line and pValue 추가
+# 별표 추가 위치 설정
 x1, x2 = 0, 1 
-y, h, col = upper_Yrange[1] - 2, 0.5, 'k'
-axUp.plot([x1, x1, x2, x2], [y, y+h, y+h, y], lw=2, color=col)
-axUp.text((x1+x2)*.5, y+h-0.15, stars, ha='center', va='bottom', color=col)
-
+y, h, text_h = upper_Yrange[1] - 2, 0.5, 0.15
+add_pvalue_star(axUp, p_value, x1, x2, y, h, text_h)
 
 
 # 축 단절 대각선 표시
